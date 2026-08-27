@@ -1,6 +1,6 @@
 import { model, models, Schema, type Model } from "mongoose";
 
-export interface Event {
+export interface IEvent {
   title: string;
   slug: string;
   description: string;
@@ -30,7 +30,7 @@ const nonEmptyStringArray = {
   },
 } as const;
 
-const eventSchema = new Schema<Event>(
+const eventSchema = new Schema<IEvent>(
   {
     title: requiredText,
     slug: { type: String, trim: true },
@@ -91,5 +91,5 @@ eventSchema.pre("save", function () {
 
 eventSchema.index({ slug: 1 }, { unique: true });
 
-export const Event: Model<Event> =
-  (models.Event as Model<Event> | undefined) ?? model<Event>("Event", eventSchema);
+export const IEvent: Model<IEvent> =
+  (models.Event as Model<IEvent> | undefined) ?? model<IEvent>("Event", eventSchema);
