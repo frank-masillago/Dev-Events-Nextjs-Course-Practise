@@ -1,6 +1,6 @@
 import { model, models, Schema, Types, type Model } from "mongoose";
 
-import { Event } from "./event.model";
+import { IEvent } from "./event.model";
 
 export interface Booking {
   eventId: Types.ObjectId;
@@ -30,7 +30,7 @@ const bookingSchema = new Schema<Booking>(
 bookingSchema.pre("save", async function () {
   if (!this.isModified("eventId")) return;
 
-  const eventExists = await Event.exists({ _id: this.eventId });
+  const eventExists = await IEvent.exists({ _id: this.eventId });
   if (!eventExists) throw new Error("The referenced event does not exist.");
 });
 
